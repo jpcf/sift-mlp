@@ -39,8 +39,8 @@ class Mlp:
 	def backPropagate(self, trainingPattern):
 		# Backpropagating the deltas, the trainingPatters must have the same shape as the activation output
 		self.deltaO = (relu(self.activOut) - trainingPattern)
-		self.deltaH = np.multiply(reluPrime(self.activHid), np.dot(self.outW.T, self.deltaO))
+		self.deltaH = np.multiply(reluPrime(self.activHid), np.dot(self.outW[:,0:self.hidDim].T, self.deltaO))
 
 		# The learning step. Note that the gradient is delta(j)*relu(activHid(i))
-		self.outW = self.outW - self.learnRate*np.dot(self.deltaO, relu(self.activHid.T))
-		self.hidW = self.hidW - self.learnRate*np.dot(self.deltaH, relu(self.prevX.T))
+		self.outW -= self.learnRate*np.dot(self.deltaO, np.concatenate( (relu(self.activHid), np.array([[1]])) ).T )
+		self.hidW -= self.learnRate*np.dot(self.deltaH, np.concatenate( (relu(self.prevX), np.array([[1]])) ).T )
