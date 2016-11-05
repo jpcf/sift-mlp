@@ -1,7 +1,7 @@
 import numpy as np
 
 def relu(x):
-	return x*(x>0)
+	return np.maximum(x, 0, x)
 
 def reluPrime(x):
 	# This is just the Heaviside function
@@ -32,7 +32,7 @@ class Mlp:
 
 	def forwardPropagate(self,inputVec):
 		self.activHid = np.dot(self.hidW, np.concatenate((inputVec, np.array([[1]]))) )           
-		self.activOut = np.dot(self.outW, relu( np.concatenate((self.activHid, np.array([[1]])) ) ) )
+		self.activOut = np.dot(self.outW, np.relu( np.concatenate((self.activHid, np.array([[1]])) ) ) )
 		self.prevX    = inputVec
 		return relu(self.activOut)
 
