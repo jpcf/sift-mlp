@@ -12,7 +12,7 @@ TEST_SAMP  = 28000
 N_PIXELS   = 784
 
 # The Multilayer Perceptron Layer
-ann = Mlp.Mlp(784, 100, 10, 0.1)
+ann = Mlp.Mlp(784, 100, 10, 0.05)
 
 # --------------------------------- LOADING DATA ---------------------------------- #
 
